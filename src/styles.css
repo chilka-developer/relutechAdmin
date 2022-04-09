@@ -1,0 +1,403 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+/* 
+.box-body {
+    overflow: auto;
+} */
+
+.hide {
+    display: none;
+}
+
+.glyphicon-remove {
+    color: red;
+    padding-top: 32px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.navbar {
+    display: flow-root;
+}
+
+nav.navbar.navbar-static-top {
+    height: 10px;
+}
+
+footer.main-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+span.logo-lg img,
+span.logo-mini b img {
+    width: 88% !important;
+}
+
+
+/* span.logo-mini b img {
+    width: 100%;
+} */
+
+
+/* all page common css start*/
+
+ul#lnk_toggle_admin_profile,
+.small-box.bg-aqua,
+.small-box.bg-green,
+.small-box.bg-red,
+table#empTable {
+    cursor: pointer;
+}
+
+
+/*btn css start*/
+
+button#addData {
+    color: #fff;
+    background-color: #6d8391;
+    border-color: #6d8391;
+}
+
+button#deleteData:hover {
+    background-color: #f38020;
+    border-color: #f38020;
+    /* border-radius: 3px; */
+}
+
+button#deleteData {
+    background-color: #6d8391;
+    border-color: #6d8391;
+    color: #fff;
+}
+
+button#saveData {
+    background-color: #6d8391;
+    border-color: #6d8391;
+    /* border-radius: 3px; */
+    color: #fff;
+}
+
+button#saveData:hover {
+    color: #fff;
+    background-color: #f38020;
+    border-color: #f38020;
+    /* border-radius: 3px; */
+}
+
+button.btn.btn-sm.btn-default.closeData {
+    background-color: #6d8391;
+    border-color: #6d8391;
+    border-radius: 3px;
+    color: #fff;
+    margin-left: 9px;
+}
+
+button.btn.btn-sm.btn-default.closeData:hover {
+    color: #fff;
+    background-color: #f38020;
+    border-color: #f38020;
+    border-radius: 3px;
+}
+
+
+/* a.sidebar-toggle {
+    margin-top: 12px;
+} */
+
+
+/*btn css end*/
+
+
+/* all page common css end*/
+
+
+/*add-edit coommon css start here*/
+
+
+/*add-edit alert start here*/
+
+.alert-danger {
+    color: #842029 !important;
+    background-color: #f8d7da !important;
+    border-color: #f5c2c7 !important;
+}
+
+.alert-success {
+    color: #155724 !important;
+    background-color: #d4edda !important;
+    border-color: #c3e6cb !important;
+}
+
+.alert {
+    position: relative;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+
+/*add-edit alert end here*/
+
+h5.d-inline-block.text-nowrap {
+    font-size: 18px;
+}
+
+.sidebar-mini.sidebar-collapse .main-header .logo>.logo-mini {
+    background-color: #FFF;
+}
+
+.main-header .logo>.logo-lg {
+    background-color: #FFF;
+}
+
+div#Result {
+    background-color: #f8f9fa;
+    margin-top: 10px;
+    padding-left: 1% !important;
+}
+
+.box-area {
+    padding-bottom: 15px;
+}
+
+
+/*is active radio button css start here */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 32px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 23px;
+    width: 23px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #f38020;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+
+/* Rounded sliders */
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+/*is active radio button css end here */
+
+
+/*add-edit coommon css end here*/
+
+
+/*profile css start here*/
+
+#admin_profile_top {
+    display: none;
+}
+
+p#lnk_toggle_admin_profile {
+    display: inline-block;
+    margin: 5px;
+}
+
+.sign-in-button {
+    background: #f4801f;
+    color: white;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+}
+
+h5#exampleModalLabel {
+    text-align: center;
+    font-weight: 500;
+}
+
+.popup-details {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    border-top: 3px solid #d2d6de
+}
+
+.popup-details p {
+    text-align: left;
+    font-size: 16px;
+    padding-bottom: 20px;
+}
+
+button.btn.btn-secondary {
+    margin-left: 10px;
+}
+
+a.closed {
+    position: absolute;
+    top: 0px;
+    right: 14px;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: visible;
+    opacity: 1;
+    overflow: scroll;
+    z-index: 2;
+}
+
+#record_delete_fail,
+#record_delete_success {
+    display: none;
+    text-align: left;
+}
+
+#fmv-fmvDollar,
+#fmvDollar {
+    display: none;
+}
+
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #ecf0f5;
+    border-radius: 5px;
+    width: 40%;
+    position: relative;
+    transition: all 5s ease-in-out;
+    border: 2px solid #f38020;
+}
+
+.popup h2 {
+    margin-top: 0;
+    color: #333;
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+.popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.popup .close:hover {
+    color: #06D85F;
+    cursor: pointer;
+}
+
+.popup .content {
+    max-height: 30%;
+    overflow: auto;
+}
+
+span.float-right.d-none.d-md-inline-block {
+    padding-right: 45px;
+}
+
+button#addData {
+    padding: 4px 10px;
+    margin-left: 5px;
+}
+
+
+/* @media (max-width: 768px) {
+    .country {
+        overflow-y: scroll;
+        width: 100%;
+        height: 200px;
+    }
+    .country .col-sm-3 {
+        width: 100%;
+    }
+} */
+
+
+/* @media (max-width: 768px) {} */
+
+@media screen and (max-width: 700px) {
+    .popup {
+        width: 90%;
+    }
+    span.logo-lg img,
+    span.logo-mini b img {
+        width: 68% !important;
+    }
+    .skin-black .main-header>.navbar .navbar-custom-menu .nav>li.user-menu {
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width:767px) {
+    span.logo-lg img,
+    span.logo-mini b img {
+        width: 40% !important;
+    }
+    .box.box-default {
+        overflow: auto !important;
+    }
+}
+
+@media(min-width:991px) {
+    select.custom-dropdown.drp-productline,
+    select.custom-dropdown.drp-oem,
+    select.custom-dropdown.drp-type {
+        width: 145px;
+    }
+}

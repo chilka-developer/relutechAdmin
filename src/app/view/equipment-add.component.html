@@ -1,0 +1,393 @@
+<html>
+
+<head>
+    <app-head></app-head>
+
+
+
+</head>
+
+<body class="skin-black fixed sidebar-mini sidebar-mini-expand-feature">
+    <div class="wrapper">
+        <app-header></app-header>
+        <app-side-bar></app-side-bar>
+        <div class="content-wrapper">
+
+            <section class="content-header">
+                <h1>Add Equipment</h1>
+                <ol class="breadcrumb">
+
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Equipment</li>
+                </ol>
+            </section>
+            <section class="content">
+                <div class="row layout-section">
+                    <div class="col-12 col-md-12 col-lg-12 layout-section-right">
+                        <div class="h-100 formHolder" id="formHolder" tabindex="0">
+                            <form id="mainForm" enctype="multipart/form-data" novalidate="">
+                                <div class="box box-default">
+                                    <div class="box-header pb-0 border-bottom">
+                                        <h5 class="d-inline-block text-nowrap">Equipment Details</h5>
+                                        <div class="float-right buttons text-right">
+                                            <!-- <button type="button" class="btn btn-sm btn-default gotoView">
+                                                    <svg class="svg-inline--fa fa-arrow-left fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>
+                                                </button> -->
+
+                                            <button type="button" class="btn btn-sm btn-light" id="saveData" title="Save" (click)="navigateToEquipmentAddList()">
+                                            <svg class="svg-inline--fa fa-save fa-w-14" aria-hidden="true" focusable="false" data-prefix="far" data-icon="save" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM272 80v80H144V80h128zm122 352H54a6 6 0 0 1-6-6V86a6 6 0 0 1 6-6h42v104c0 13.255 10.745 24 24 24h176c13.255 0 24-10.745 24-24V83.882l78.243 78.243a6 6 0 0 1 1.757 4.243V426a6 6 0 0 1-6 6zM224 232c-48.523 0-88 39.477-88 88s39.477 88 88 88 88-39.477 88-88-39.477-88-88-88zm0 128c-22.056 0-40-17.944-40-40s17.944-40 40-40 40 17.944 40 40-17.944 40-40 40z"></path></svg><!-- <i class="far fa-save"></i> Font Awesome fontawesome.com -->
+                                        </button>
+                                            <button type="button" class="btn btn-sm btn-default closeData" title="Close" (click)="navigateToEquipmentList()">
+                                                    <svg class="svg-inline--fa fa-times fa-w-11" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg=""><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg><!-- <i class="fas fa-times"></i> Font Awesome fontawesome.com -->
+                                                </button>
+                                        </div>
+                                    </div>
+                                    <div class="box-body pt-0 pr-0 pl-0">
+                                        <div class="data-scrollable pl-3 pr-3 pt-3" id="containt-main">
+                                            <div id="equipment_add_success" class="alert alert-success form-control" role="alert">
+                                                {{this.display_success_msg}}
+                                            </div>
+                                            <div id="equipment_add_failed" class="alert alert-danger form-control" role="alert">
+                                                {{this.display_failed_msg}}
+                                            </div>
+                                            <div id="valid_equipment_form" class="alert alert-danger" role="alert">
+
+                                            </div>
+                                            <div class="row box-area">
+                                                <div class="col-sm-3">
+                                                    <label>OEM<span class="text-danger">*</span></label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select name="oem" id=" " class="form-control" [(ngModel)]="selectedOem" (change)="onOemChange(selectOem.value);" #selectOem [ngModelOptions]="{standalone: true}">
+                                                        <!-- <option value="0">Select OEM Name</option> -->
+                                                        <option *ngFor="let singleOem of getOem" value={{singleOem.id}}>{{singleOem.name}}</option>
+                                                        <!-- <option>hpe</option>
+                                                        <option>cisco</option> -->
+                                                    </select>
+                                                    <!-- <select name="oem" id=" " class="form-control" [(ngModel)]="oemName">
+                                                        <option >12</option>
+                                     
+                                                    </select> -->
+                                                </div>
+                                                <div class="col-sm-3 ">
+                                                    <label id="originalCostNameLbl">Original Cost($)<span class="text-danger">*</span></label>
+                                                </div>
+                                                <div class="col-sm-3 mb-3">
+                                                    <input type="text" maxlength="150" name="originalCostName" id="originalCostName" class="form-control" required [(ngModel)]="originalCostName" />
+                                                </div>
+
+
+                                            </div>
+                                            <div class="row box-area">
+                                                <div class="col-sm-3">
+                                                    <label>Product Line<span class="text-danger">*</span></label>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                    <select name="product-line" class="form-control" id="drpProductLine" [(ngModel)]="selectedProductLine" (change)="onProductLineChange(selectOem.value);">
+                                                        <option *ngFor="let product of getProductLine" value="{{product.id}}">{{product.name}}</option>
+                                                    </select>
+
+                                                    <!-- <select name="product-line" class="form-control" [(ngModel)]="productLineName">
+                                                        <option >product</option>
+                                                    </select> -->
+                                                </div>
+                                                <div class="col-sm-3 ">
+                                                    <label>Date of Manufacture<span class="text-danger">*</span></label>
+                                                </div>
+                                                <div class="col-sm-3 mb-3">
+                                                    <input type="date" maxlength="150" name="manufactureDate" placeholder="mm-dd-yyyy" id="manufactureDate" class="form-control" required [(ngModel)]="manufactureDate" />
+                                                </div>
+                                            </div>
+                                            <div class="row box-area">
+                                                <div class="col-md-3">
+                                                    <label>Type<span class="text-danger">*</span></label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select name="type " id="drpType" [(ngModel)]="selectedType" class="form-control" (change)="onTypeChanged($event.target.value)">
+                                                        <option *ngFor="let type of getType" value="{{type.id}}">{{type.name}}</option>
+                                                      
+                                                    </select>
+                                                    <!-- <select name="type" id=" " class="form-control" [(ngModel)]="typeName">
+                                                            <option>type</option>
+                                                        </select> -->
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label>Infrastructure Type<span class="text-danger">*</span></label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select name="infrastructure-type " id="infrastructure-type" class="form-control" [(ngModel)]="selectedInfrastructureType">
+                                                        <option value="server">Server</option>
+                                                        <option value="storage">Storage</option>
+                                                        <option value="networking">Networking</option>
+                                                      
+                                                    </select>
+
+                                                </div>
+
+                                            </div>
+                                            <section id="genericSection">
+
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>Relutech Maintenance Cost(%)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="number" maxlength="150" name="rMaintenanceCost" id="rMaintenanceCost" class="form-control" required [(ngModel)]="rMaintenanceCost" />
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>OEM Maintenance Renewal Cost(%)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" maxlength="150" name="oemMaintenanceCost" id="oemMaintenanceCost" class="form-control" required [(ngModel)]="oemMaintenanceCost" />
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>Buy Price(%)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="number" maxlength="150" name="buyPrice" id="buyPrice" class="form-control" required [(ngModel)]="buyPrice" />
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>FMV (%)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" maxlength="150" name="fmv" id="fmv" class="form-control" required [(ngModel)]="fmv" />
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>KWH at 40% Load<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="number" min="0" max="150" maxlength="150" name="kwh_40_per_load_per" id="kwh_40_per_load_per" class="form-control" required [(ngModel)]="kwh_40_per_load_per" />
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>SPEC Score at 40% Load<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" min="0" max="150" maxlength="150" name="spec_score_40_per_per" id="spec_score_40_per_per" class="form-control" required [(ngModel)]="spec_score_40_per_per" />
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>Monthly Reduction in Buy Price(%)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="number" maxlength="150" name="monthlyReductioninFMV" id="monthlyReductioninFMV" class="form-control" required [(ngModel)]="monthlyReductioninFMV" />
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <label>Aging Bucket 0-1 year(%)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" maxlength="150" name="agingBucket1year" id="agingBucket1year" class="form-control" required [(ngModel)]="agingBucket1year" />
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>1-2 years(%)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="text" maxlength="150" name="twoYears" id="twoYears" class="form-control" required [(ngModel)]="twoYears" />
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <label>2-3 years(%)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" maxlength="150" name="threeYears" id="threeYears" class="form-control" required [(ngModel)]="threeYears" />
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>3-4 years(%)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="text" maxlength="150" name="fourYears" id="fourYears" class="form-control" required [(ngModel)]="fourYears" />
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>4-5 years(%)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" maxlength="150" name="fiveYears" id="fiveYears" class="form-control" required [(ngModel)]="fiveYears" />
+
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>Over 5 years old(%)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="text" maxlength="150" name="overFiveYearsOld" id="overFiveYearsOld" class="form-control" required [(ngModel)]="overFiveYearsOld" />
+                                                    </div>
+
+                                                </div>
+
+                                            </section>
+
+
+
+                                            <section id="amountSection">
+
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>Relutech Maintenance Cost(per Month $)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="number" maxlength="150" name="rMaintenanceCostDollar" id="rMaintenanceCostDollar" class="form-control" required [(ngModel)]="rMaintenanceCostDollar" />
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>OEM Maintenance Renewal Cost(per Month $)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" maxlength="150" name="oemMaintenanceCostDollar" id="oemMaintenanceCostDollar" class="form-control" required [(ngModel)]="oemMaintenanceCostDollar" />
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>Buy Price($)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="number" maxlength="150" name="buyPriceDollar" id="buyPriceDollar" class="form-control" required [(ngModel)]="buyPriceDollar" />
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label id="fmv-fmvDollar">FMV ($)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" value="0" maxlength="150" name="fmvDollar" id="fmvDollar" class="form-control" required [(ngModel)]="fmvDollar" />
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>KWH at 40% Load($)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="number" min="0" max="150" maxlength="150" name="kwh_40_per_load_amount" id="kwh_40_per_load_amount" class="form-control" required [(ngModel)]="kwh_40_per_load_amount" />
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>SPEC Score at 40% Load($)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" min="0" max="150" maxlength="150" name="spec_score_40_per_amount" id="spec_score_40_per_amount" class="form-control" required [(ngModel)]="spec_score_40_per_amount" />
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>Monthly Reduction in Buy Price(%)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="number" value="0" maxlength="150" name="monthlyReductioninFMVDollar" id="monthlyReductioninFMVDollar" class="form-control" required [(ngModel)]="monthlyReductioninFMVDollar" />
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <label>Aging Bucket 0-1 year($)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" value="0" maxlength="150" name="agingBucket1yearDollar" id="agingBucket1yearDollar" class="form-control" required [(ngModel)]="agingBucket1yearDollar" />
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>1-2 years($)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="text" value="0" maxlength="150" name="twoYearsDollar" id="twoYearsDollar" class="form-control" required [(ngModel)]="twoYearsDollar" />
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <label>2-3 years($)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" value="0" maxlength="150" name="threeYearsDollar" id="threeYearsDollar" class="form-control" required [(ngModel)]="threeYearsDollar" />
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>3-4 years($)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="text" value="0" maxlength="150" name="fourYearsDollar" id="fourYearsDollar" class="form-control" required [(ngModel)]="fourYearsDollar" />
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>4-5 years($)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" value="0" maxlength="150" name="fiveYearsDollar" id="fiveYearsDollar" class="form-control" required [(ngModel)]="fiveYearsDollar" />
+
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row box-area">
+                                                    <div class="col-sm-3 ">
+                                                        <label>Over 5 years old($)<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-3 mb-3">
+                                                        <input type="text" value="0" maxlength="150" name="overFiveYearsOldDollar" id="overFiveYearsOldDollar" class="form-control" required [(ngModel)]="overFiveYearsOldDollar" />
+                                                    </div>
+
+                                                </div>
+
+                                            </section>
+
+                                            <div class="row box-area">
+                                                <div class="col-md-3">
+                                                    <label>Status<span class="text-danger ">*</span></label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label class="switch">
+                                                    <input type="checkbox" name="options" value="1" [(ngModel)]="isActive" checked>
+                                                    <span class="slider round"  id="chkisactive"></span>
+                                                    <!-- <input type="checkbox" name="options" value="0" [(ngModel)]="isActive.options" checked data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger"> -->
+                                                  </label><br><br>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+
+
+        <!-- end of content wrapper -->
+        <app-footer></app-footer>
+    </div>
+    <div id="spinner "></div>
+</body>
+
+</html>

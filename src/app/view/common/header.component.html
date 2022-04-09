@@ -1,0 +1,30 @@
+<header class="main-header"><a href="#" class="logo"><span class="logo-mini"><b><img src="assets/image/relutechlogo-small.png"/></b></span><span class="logo-lg" style="font-size: 15px; font-weight: bold;"><img src="assets/image/relutechlogo.png" alt="ReluTech" style="width: 100% ; background-color: #fff;"></span></a>
+    <nav role="navigation" class="navbar navbar-static-top navbar-expand fixed-top1" role="navigation">
+        <p data-toggle="offcanvas" role="button" class="sidebar-toggle" id="hamburger-sidebar-toggle"><span class="sr-only">Toggle navigation</span></p>
+        <div class="navbar-custom-menu  d-flex ml-auto">
+            <ul class="nav navbar-nav" id="lnk_toggle_admin_profile">
+                <li class="dropdown user user-menu position-relative">
+                    <p data-toggle="dropdown" class="dropdown-toggle"><img src="assets/image/user.png" alt="User Image" class="user-image"><span class="hidden-xs"></span></p>
+                    <ul class="dropdown-menu shadow border-0" id="admin_profile_top">
+                        <li class="user-header bg-white">
+                            <img src="assets/image/user.png" class="avatar">
+
+                            <p class="text-dark">
+                                Administrator
+                            </p>
+                        </li>
+                        <li class="user-footer">
+                            <div class="float-left">
+                                <a routerLink="/change_password" class="btn btn-light" (click)="navigateToChangePass()">Change Password</a>
+
+                            </div>
+                            <div class="float-right">
+                                <a routerLink="/sign-in" class="btn btn-light" (click)="navigateToSignIn()">Sign Out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

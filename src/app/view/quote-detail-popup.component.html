@@ -1,0 +1,446 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ReluTech</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <style>
+        tr:nth-child(odd) {
+            background: #f9f9f9;
+        }
+        
+        @media (min-width: 768px) {
+            body.sidebar-mini .content-wrapper {
+                margin-left: 0px !important;
+            }
+        }
+        
+        div.final-result-1 p {
+            margin-top: 15px;
+        }
+    </style>
+    <style>
+        highcharts-chart {
+            display: block;
+            overflow: visible;
+            min-width: 550px;
+        }
+    </style>
+</head>
+
+<body class="skin-blue sidebar-mini">
+    <div class="wrapper1">
+        <div class="content-wrapper">
+            <section class="content">
+                <div class="row" id="row-container">
+                    <div class="col-md-12">
+                        <div class="box box-primary">
+
+                            <input type="hidden" name="quotes_id" value="1">
+                            <div class="box-body">
+                                <div class='form-group col-sm-12 range'>
+                                    <label> Company Name </label>
+                                    <p>{{this.quotesDetails.company_name}}</p>
+                                    <br/>
+                                </div>
+                                <div class='form-group col-sm-12 range'>
+                                    <label> Date of Quote </label>
+                                    <p>Date: {{todayDate | date:'shortDate'}}</p>
+                                    <br/>
+                                </div>
+                                <div class="form-group col-sm-12 range">
+                                    <label> Migration Schedule </label>
+                                    <p>{{this.quotesDetails.migration_months}} Months</p><br>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label>Number of Physical Servers</label><br>
+                                    <p>{{this.resultMaintenanceSavings.physical_servers}}</p>
+                                </div>
+                                <div class="form-group col-md-9 mt-2">
+                                    <!-- <label>Data Center Locations</label>
+                                    <div>
+                                        <label class="col-sm-12">
+                                                    <ul *ngFor = "let country of countriesName" [(ngModel)]="countriesName" >
+                                                        <li >{{country.name}}</li>
+                                                       
+                                                    </ul>
+                                                </label>
+                                    </div> -->
+                                    <label>Data Centers</label>
+                                    <table class="table table-bordered">
+
+                                        <tbody>
+                                            <tr>
+                                                <th>Data Center Locations</th>
+                                                <th>Power Effectiveness</th>
+                                                <th>% Energy from Usage</th>
+                                            </tr>
+                                            <tr *ngFor="let country of countriesName" [(ngModel)]="countriesName">
+                                                <td>{{country.name}}</td>
+                                                <td>{{country.pue}}</td>
+                                                <td>{{country.per_energy_usage}}%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="form-group col-md-9 mt-2">
+                                    <label>Server Detail
+                                      
+                                    </label><br>
+                                    <div class="table-wrapper">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th>OEM</th>
+                                                    <th>Product Line</th>
+                                                    <th>Server Type</th>
+                                                    <th>0-1 Year Old</th>
+                                                    <th>1-2 Years Old</th>
+                                                    <th>2-3 Years Old</th>
+                                                    <th>3-4 Years Old</th>
+                                                    <th>4-5 Years Old</th>
+                                                    <th>Over 5 Year old</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                                <tr *ngFor="let datacenter of datacenters">
+                                                    <td>{{datacenter.oem_name}}</td>
+                                                    <td>{{datacenter.product_line_name}}</td>
+                                                    <td>{{datacenter.type_name}}</td>
+                                                    <td>{{datacenter.year_0_1}}</td>
+                                                    <td>{{datacenter.year_1_2}}</td>
+                                                    <td>{{datacenter.year_2_3}}</td>
+                                                    <td>{{datacenter.year_3_4}}</td>
+                                                    <td>{{datacenter.year_4_5}}</td>
+                                                    <td>{{datacenter.over_5_years}}</td>
+                                                    <td>{{datacenter.total_servers}}</td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12" id="summary">
+                                    <h4>Results Summary:</h4>
+                                    <div>
+                                        <div class="col-12 col-md-6 col-lg-3 ">
+                                            <div class="card text-center card1 final-result-icon-1">
+                                                <a href="#">
+                                                    <div class="card-body">
+                                                        <img class="card-img-content" src="assets/image/maintenance.png" id="image1-model">
+                                                        <p class="card-text text1"><strong>Hardware Maintenance<br/>Savings</strong></p>
+                                                        <p class="card-text active activetext"><strong>${{hardwareMaintenanceSavings}}</strong></p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6 col-lg-3">
+                                            <div class="card text-center card1 final-result-icon-2">
+                                                <a href="#">
+                                                    <div class="card-body">
+                                                        <img class="card-img-content" src="assets/image/dollar.png" id="image2-model">
+                                                        <p class="card-text text1 pbottom-text"><strong>Purchase Leaseback<br/>Savings</strong></p>
+                                                        <p class="card-text active activetext"><strong>${{this.PlbSavings}}</strong></p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6 col-lg-3 ">
+                                            <div class="card text-center card1 final-result-icon-3">
+                                                <a href="#">
+                                                    <div class="card-body">
+                                                        <img class="card-img-content" src="assets/image/right-cloud.png" id="image3-model">
+                                                        <p class="card-text text1 pbottom-text"><strong>Carbon FootPrint<br/>Reduction</strong></p>
+                                                        <p class="card-text active activetext"><strong>{{this.CarbonFootprintReduction}} kg CO<sub>2e</sub></strong></p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6 col-lg-3 ">
+                                            <div class="card text-center card1 final-result-icon-4">
+                                                <a href="#">
+                                                    <div class="card-body">
+                                                        <img class="card-img-content" src="assets/image/savings-icon.png">
+                                                        <p class="card-text text1 pbottom-text"><strong>Hardware<br/>Valuation</strong></p>
+                                                        <p class="card-text active activetext"><strong>${{this.EquipmentWorth}}</strong></p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row  final-result-1">
+                                        <div class="col-12">
+                                            <h4>Hardware Maintenance Savings</h4>
+                                            <p>
+                                                During a migration to the cloud, datacenter hardware still needs to be maintained. Through Relutech's Elastic Maintenance program, customers can save up to 70% off OEM maintenance agreements. Based on the age, type, and location of the equipment, we estimate
+                                                the savings that can be generated to help fund your migration.
+                                            </p>
+                                            <p class="maintaintext"><span class="maintenance">Current OEM Maintenance Renewal.............</span><span class="maintainprice">${{this.oemMaintainance}}</span></p>
+                                            <p class="maintaintext"><span class="maintenance">Relutech Maintenance Cost...............</span><span class="maintainprice">${{this.rlMaintainance}}</span></p>
+                                            <p><span class="maintenance">Estimated Maintenance Savings.........</span><span class="maintainprice">${{this.estimatedMaintainanceSavings}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row final-result-2">
+                                        <div class="col-12">
+                                            <h4>Purchase Leaseback</h4>
+                                            <p>
+                                                Relutech offers a Purchase Leaseback solution where we buy IT assets and then lease them back to the customer during the length of the migration. This provides a cash infusion upfront while ensuring critical infrastructure is maintained to bridge the
+                                                gap between on-premises to the cloud. This solution creates a more predictable financial outcome, removes these assets from the balance sheet, and provides a with locked-in residual value.
+                                            </p>
+                                            <br>
+                                            <p>
+                                                Estimates of the cash benefit of a purchase leaseback are detailed below. Many factors can have an impact on a final proposal, and significant additional savings can be realized from hardware maintenance.
+                                            </p>
+                                            <div class="mt-5 context-inner-details-purchase">
+                                                <div class="mx-2 ms-lg-5 box-text-center">
+                                                    <div class="row mt-3 row-text-line">
+                                                        <div class="col-1 col-md-1 row-text-line-content">
+                                                            <p>1</p>
+                                                        </div>
+                                                        <div class="col-md-4 col-10 row-text-left-line-content">
+                                                            <p>ReluTech Pays Customer for Equipment</p>
+                                                        </div>
+                                                        <div class="col-md-3 col-6"></div>
+                                                        <div class="col-6 col-md-2 row-text-right-line-content">
+                                                            <p class="text-center row-text-line-content-para">${{this.buyPrice}}</p>
+                                                        </div>
+                                                        <div class="col-md-2"></div>
+                                                    </div>
+                                                    <div class="row py-0 row-text-line">
+                                                        <div class="col-1 col-md-1 row-text-line-content">
+                                                            <p>2</p>
+                                                        </div>
+                                                        <div class="col-md-4 col-10 row-text-left-line-content">
+                                                            <p>Customer Pays ReluTech Rent for the Lease Term</p>
+                                                        </div>
+                                                        <div class="col-md-2 col-3 row-text-right-line-content">
+                                                            <p class="text-center row-text-line-content-para">{{this.quotesDetails.migration_months}} Months</p>
+                                                        </div>
+                                                        <div class=" col-md-1 col-1 row-text-line-content-symbol">
+                                                            <p class="text-center row-text-line-content-para">X</p>
+                                                        </div>
+                                                        <div class="col-md-2 col-3 row-text-right-line-content">
+                                                            <p class="text-center row-text-line-content-para">
+                                                                ${{this.result_relu_rent_display}}
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-1 col-1 row-text-line-content-symbol">
+                                                            <p>=</p>
+                                                        </div>
+                                                        <div class="col-md-1 col-4 row-text-right-line-content">
+                                                            <p class="text-center row-text-line-content-para">${{ this.customerPaysRelutech }}</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row row-text-line">
+                                                        <div class="col-1 col-md-1 row-text-line-content">
+                                                            <p>3</p>
+                                                        </div>
+                                                        <div class="col-md-4 col-10 row-text-left-line-content">
+                                                            <p>Customer Benefits from the Difference</p>
+                                                        </div>
+                                                        <div class="col-md-2 col-3 row-text-right-line-content">
+                                                            <p class="text-center row-text-line-content-para">${{this.buyPrice}}</p>
+                                                        </div>
+                                                        <div class="col-md-1 col-1 row-text-line-content-symbol">
+                                                            <p>-</p>
+                                                        </div>
+                                                        <div class="col-md-2 col-3 row-text-right-line-content">
+                                                            <p class="text-center row-text-line-content-para">${{ this.customerPaysRelutech }}</p>
+                                                        </div>
+                                                        <div class="col-md-1 col-1 row-text-line-content-symbol">
+                                                            <p>=</p>
+                                                        </div>
+                                                        <div class="col-md-1 col-4 row-text-right-line-content">
+                                                            <p class="text-center row-text-line-content-para">${{ this.diffTotal3 }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row final-result-3 ">
+                                        <div class="col-12">
+                                            <h4>Carbon Footprint Reduction</h4>
+                                            <p class="text-center carbo-para">
+                                                By eliminating datacenter equipment and moving to the cloud, companies can substantially reduce their carbon footprint. For these estimates, we made some fairly broad, but conservative assumptions. We compared the energy consumption of average servers
+                                                running on-premises and in AWS in the United States, and extrapolated the total savings based on the migration timeline and total number of servers. For our calculations, we relied on the following research:
+                                                Lannelongue, L., Grealey, J., Inouye, M., Green Algorithms: Quantifying the Carbon Footprint of Computation. Adv. Sci. 2021, 2100707.
+                                            </p>
+
+
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row fs-5 ms-lg-2">
+                                                <div class="col-lg-3">
+                                                    <div class="card text-center icon card-content-details">
+                                                        <div class="card-body">
+                                                            <img src="assets/image/icon04.png" class="img-fluid">
+                                                            <p class="card-text card-title-text-para">{{this.result_trees_saved}} Tree Years</p>
+
+                                                            <p class="card-text card-inner-text-para">Carbon Sequestration</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="card text-center icon card-content-details">
+                                                        <div class="card-body card-img-context">
+                                                            <img src="assets/image/icon05.png" class="img-fluid">
+                                                            <p class="card-text card-title-text-para">{{this.result_miles_passenger_car}} miles</p>
+                                                            <p class="card-text card-inner-text-para">in a passenger car</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="card text-center icon card-content-details">
+                                                        <div class="card-body card-img-context">
+                                                            <img src="assets/image/co2-icon.png" class="img-fluid image-carbon">
+                                                            <p class="card-text card-title-text-para">{{this.result_carbon_footprint_reduction}}%</p>
+                                                            <p class="card-text card-inner-text-para">CO2 Emissions Saved</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="card text-center icon card-content-details">
+                                                        <div class="card-body card-img-context">
+                                                            <img src="assets/image/energy-icon.png" class="img-fluid">
+                                                            <p class="card-text card-title-text-para">{{this.result_energy_saved}}%</p>
+                                                            <p class="card-text card-inner-text-para">Energy Saved(per month)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row final-result-4">
+                                        <div class="col-12">
+                                            <h4>Hardware Valuation</h4>
+                                            <p>
+                                                Many factors influence the value of datacenter equipment. The estimates we have made, provide a current and future valuation, based only on the information provided. A more detailed estimate may be provided from a complete hardware asset inventory.
+                                            </p>
+                                            <div class="row">
+                                                <div class="col-lg-12 center">
+                                                    <div class="charge-center">
+                                                        <highcharts-chart [Highcharts]="highcharts" [options]="chartOptions" class="h-chart">
+                                                        </highcharts-chart>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p class="graph-under-line">Based on our estimates, your equipment will be worth approximately <span>${{this.equipmentWorth}}</span> at the end of <span>{{this.quotesDetails.migration_months}} months</span>, when your migration
+                                                        is complete.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <p class="modal-title" id="myModalLabel">Our IT ivest solution is ideal for customers who own their own IT equipment.</p>
+                        <br>
+                        <p>Furthmore, our solution is not be a great fit small customers, defined as those under 20 years.</p>
+                        <br>
+                        <p>There are exceptions of course.</p>
+                        <br>
+                        <p>Like a mainframe customers, or a customer who only wants to migrate storage to the cloud. Let's us know your customer situation.</p>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <textarea name="description" id="description" class="form-control" rows="5" cols="4">                                                            </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h3><b>All locations are approved.</b></h3>
+                        <p class="modal-title" id="myModalLabel">Please proceed to the next section.</p>
+                        <br>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h3><b>For one or more of the locations selected we do not offer services.</b></h3>
+                        <p class="modal-title" id="myModalLabel">Please note below the locations we can not provide service.</p>
+                        <br>
+                    </div>
+                    <div class="modal-body">
+                        <div class="country-list" id="country-list"></div>
+                        <div class="notes">
+                            <p>For all further questions, please enter data for our approved locations only.</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 " id="email_form">
+
+            <div class="form-group form-inline">
+                <form ngform action="#" method="post">
+                    <input type="email" class="form-control" id="txtEmail" placeholder="Email ID" [(ngModel)]="getClientEmailId" [ngModelOptions]="{standalone: true}">
+
+                    <button type="button" class="btn btn-default btn-send-msg" id="send" (click)="onSendEmail()">Send</button>
+
+                </form>
+            </div>
+        </div>
+        <!-- <div class="popup-footer">
+            <div class="modal-footer">
+                <button type="button" class="btn send-email-btn" id="send_email">Send Email</button>
+
+            </div>
+        </div> -->
+
+    </div>
+
+    <div class="control-sidebar-bg"></div>
+
+    <div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+
+
+
+
+</body>
+
+</html>

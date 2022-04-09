@@ -1,0 +1,736 @@
+<html>
+
+<head>
+    <app-head></app-head>
+
+
+    <style>
+        .wrapper-loader {
+            width: 100%;
+            height: 100%;
+            background-color: lightgrey;
+            position: fixed;
+            /* top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%); */
+            left: 0px;
+            right: 0px;
+            z-index: 99999;
+            opacity: 0.8;
+        }
+        
+        .loader-spinner-img {
+            margin: 0 auto;
+            display: block;
+            text-align: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            /* margin-top: 16%; */
+        }
+    </style>
+</head>
+
+<body class="skin-black fixed sidebar-mini sidebar-mini-expand-feature">
+    <div class="wrapper-loader">
+        <span id="loader-spinner" class='loader-spinner-img'><img src='assets/image/loader.gif' /></span>
+    </div>
+    <div class="wrapper">
+        <app-header></app-header>
+        <app-side-bar></app-side-bar>
+        <div class="content-wrapper">
+            <section class="content-header">
+                <h1>Edit Quote #{{this.quotes_id}}</h1>
+                <ol class="breadcrumb">
+
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Quote</li>
+                </ol>
+            </section>
+            <section class="content">
+                <div class="row layout-section">
+                    <div class="col-12 col-md-12 col-lg-12 layout-section-right">
+                        <div class="h-100 formHolder" id="formHolder" tabindex="0">
+                            <form id="mainForm" enctype="multipart/form-data" novalidate="">
+
+
+                                <div class="box box-default">
+
+                                    <div class="box-header pb-0 border-bottom">
+                                        <h5 class="d-inline-block text-nowrap">Quote Details</h5>
+                                        <div class="float-right buttons text-right">
+                                            <button type="button" class="btn btn-sm btn-light" id="saveData" title="Save" (click)="moveNext()">
+                                                <svg class="svg-inline--fa fa-save fa-w-14" aria-hidden="true" focusable="false" data-prefix="far" data-icon="save" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM272 80v80H144V80h128zm122 352H54a6 6 0 0 1-6-6V86a6 6 0 0 1 6-6h42v104c0 13.255 10.745 24 24 24h176c13.255 0 24-10.745 24-24V83.882l78.243 78.243a6 6 0 0 1 1.757 4.243V426a6 6 0 0 1-6 6zM224 232c-48.523 0-88 39.477-88 88s39.477 88 88 88 88-39.477 88-88-39.477-88-88-88zm0 128c-22.056 0-40-17.944-40-40s17.944-40 40-40 40 17.944 40 40-17.944 40-40 40z"></path></svg><!-- <i class="far fa-save"></i> Font Awesome fontawesome.com -->
+                                                </button>
+                                            <!-- <button type="button" class="btn btn-sm btn-light btn-action btn-erector" id="deleteData" data-toggle="tooltip" title="Delete" (click)="popup = true">
+                                                <svg class="svg-inline--fa fa-trash-alt fa-w-14" aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path></svg> <i class="far fa-trash-alt"></i> Font Awesome fontawesome.com 
+                                            </button> -->
+                                            <!-- Popup starts from here  -->
+                                            <div class="overlay" *ngIf="popup">
+                                                <div class="popup">
+                                                    <div class="popup-header pt-5">
+                                                        <div id="record_delete_fail" class="alert alert-danger" role="alert"></div>
+                                                        <div id="record_delete_success" class="alert alert-success" role="alert"></div>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Confirm Delete ? </h5>
+                                                        <div class="popup-details">
+                                                            <p> Are you sure you wnat to delete this record?</p>
+                                                            <button class="btn btn-secondary" (click)="navigateToDelete()">Delete</button>
+                                                            <button class="btn btn-secondary" (click)="popup = false">Close</button>
+                                                        </div>
+                                                        <a class="closed" (click)="popup = false">&times;</a>
+                                                        <!-- <button class="close btn btn-secondary" (click)="popup = false">Close</button> -->
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            <button type="button" class="btn btn-sm btn-default closeData" data-toggle="tooltip" title="Close" (click)="goToQuoteList()">
+                                                <svg class="svg-inline--fa fa-times fa-w-11" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg=""><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg><!-- <i class="fas fa-times"></i> Font Awesome fontawesome.com -->
+                                        </button>
+                                        </div>
+                                    </div>
+                                    <div class="box-body pt-0 pr-0 pl-0">
+                                        <div class="data-scrollable pl-3 pr-3 pt-3">
+
+                                            <div class="full-area-cover">
+                                                <!-- <section class="content-header">
+                                                    <h2>Edit Quote #{{this.quote_id}}</h2>
+                                                </section> -->
+                                                <section class="content">
+                                                    <div class="row" id="row-container">
+                                                        <div class="col-md-12">
+                                                            <div class="box box-primary">
+                                                                <form role="form" method="post" name="menu" action="https://calc.resourz.net/relutech-calculator/admin/quotes-save-update" enctype="multipart/form-data">
+
+                                                                    <input type="hidden" name="quote_id" value="1">
+
+                                                                    <div id="editquote_failed_msg" role="alert" class="alert alert-danger "></div>
+
+                                                                    <div class="box-body">
+                                                                        <div class='form-group col-sm-6'>
+                                                                            <label>Company Name</label>
+
+                                                                            <input type="text" id="company_id" class="form-control" readonly />
+                                                                        </div>
+                                                                        <div class='form-group col-sm-6'>
+                                                                            <label>Sales Agent Name</label>
+
+                                                                            <input type="text" id="sales_agent_id" class="form-control" readonly />
+                                                                        </div>
+                                                                        <div class='form-group col-sm-6' id="cloud_migration">
+                                                                            <label>Will a migration begin in the next 12 months?</label><br />
+                                                                            <label>
+                                                                            <input type=radio name='txt_start_in_next_months'
+                                                                                id='txt_start_in_next_months' value='1' checked disabled  [(ngModel)]="this.quoteDetail.start_in_next_months"> Yes
+                                                                        </label>&nbsp;&nbsp;&nbsp;
+                                                                            <label>
+                                                                            <input type=radio name='txt_start_in_next_months'
+                                                                                id='txt_start_in_next_months' value='0' checked disabled [(ngModel)]="this.quoteDetail.start_in_next_months"> No
+                                                                        </label>&nbsp;&nbsp;&nbsp;
+                                                                        </div>
+                                                                        <div class='form-group col-sm-6' id="hardware_equipment">
+                                                                            <label>Is all datacenter equipment owned by the customer?</label><br />
+                                                                            <label>
+                                                                            <input type=radio name='txt_hardware' id='txt_hardware' value='1'
+                                                                                checked disabled [(ngModel)]="this.quoteDetail.hardware_equipments"> Yes
+                                                                        </label>&nbsp;&nbsp;&nbsp;
+                                                                            <label>
+                                                                            <input type=radio name='txt_hardware' id='txt_hardware' value='0'
+                                                                                disabled [(ngModel)]="this.quoteDetail.hardware_equipments">
+                                                                            No
+                                                                        </label>&nbsp;&nbsp;&nbsp;
+                                                                        </div>
+                                                                        <div class='form-group col-sm-6'>
+                                                                            <label>How many physical servers will be decommissioned due to the cloud
+                                                                            migration?</label><br />
+                                                                            <input type=number name='txt_no_of_server' id='txt_no_of_server' class='form-control' readonly [(ngModel)]="this.quoteDetail.physical_servers">
+                                                                        </div>
+                                                                        <div class='form-group col-sm-6 range' id="migration_schedule">
+                                                                            <label>Length of migration<span
+                                                                                class="text text-danger">*</span></label><br />
+                                                                            <input type=number name='migration_schedule' id='migration_schedule' class='form-control' [(ngModel)]="this.migrationMonths">
+                                                                        </div>
+                                                                        <!-- <div class="row"> -->
+                                                                        <!-- <div class="form-group col-sm-12"> -->
+                                                                        <!-- <div class='form-group col-sm-6'>
+                                                                            <label>Power Usage Effectiveness<span class="text text-danger">*</span></label><br />
+                                                                            <input type="number" min="1" max="3" name='power-effective' id='power_effective' class='form-control' [(ngModel)]="this.powerUsageEffectiveness">
+
+                                                                        </div>
+                                                                        <div class='form-group col-sm-6'>
+                                                                            <label>% of Energy from Renewables<span class="text text-danger">*</span></label><br />
+                                                                            <input type="number" min="0" max="100" name='energy-from-renewables' id='energy_from_renewables' class='form-control' [(ngModel)]="this.energyfromRenewables">
+                                                                        </div> -->
+                                                                        <!-- </div> -->
+                                                                        <div class='form-group col-sm-6'>
+                                                                            <label>Quote Name</label><br />
+                                                                            <input type="text" maxlength="200" name='quote-name' id='quote-name' class='form-control' [(ngModel)]="this.quote_name">
+                                                                        </div>
+                                                                        <div class='form-group col-sm-12' id='datacenter_location'>
+                                                                            <div class="row">
+                                                                                <label class="pl-10-line">Number of Datacenters?<span
+                                                                                    class="text text-danger">*</span></label>
+                                                                            </div>
+                                                                            <div class="row">
+
+                                                                                <div class="col-sm-3 col-xs-9">
+
+                                                                                    <select id="txt_no_of_datacenter" class='form-control mt0'></select>
+                                                                                </div>
+                                                                                <div class="col-sm-3 col-xs-2">
+                                                                                    <input type="button" name="btn_data_center" id="btn_data_center" class="btn btn-default form-control" value="Add datacenter locations" (click)="addDataCenters()">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class='form-group col-sm-12'>
+                                                                            <div class="row text-center">
+                                                                                <div class="col-md-2">&nbsp;</div>
+                                                                                <div class="col-md-4">
+                                                                                    <label>Country</label>
+                                                                                </div>
+                                                                                <div class="col-md-2">
+                                                                                    <label>Power Usage Effectiveness(%)*</label>
+                                                                                </div>
+                                                                                <div class="col-md-2">
+                                                                                    <label>% of Energy from Renewables#</label>
+                                                                                </div>
+                                                                                <div class='col-md-2'>&nbsp;</div>
+                                                                            </div>
+                                                                            <div id="datacenter" class='col-md-12'>
+
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class='form-group col-sm-6'>
+                                                                            <div class="mt-3">
+                                                                                <label>Status<span class="text text-danger">*</span></label>
+                                                                                <select id='txt_quotes_status' name='txt_quotes_status' class='form-control col-md-12'>
+                                                                                <option value="0">---Select Status ---</option>
+                                                                                <option value="workinprogress" selected>{{this.quoteDetail.status}}</option>
+                                                                                <option value="priceissue">Price Issue
+                                                                                </option>
+                                                                                <option value="schedulechange">Schedule Change</option>
+                                                                                <option value="closedwon">Closed Won
+                                                                                </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class='form-group col-sm-12' id="equipment">
+                                                                            <label>Server Details:<span class="text text-danger">*</span></label><br />
+                                                                            <div class="row equipment-container">
+
+                                                                                <div class="row equipment-container">
+
+                                                                                    <div class="calctable " *ngFor="let item of datacenters">
+                                                                                        <h5>DC{{item.srno}} {{item.country_name}} </h5>
+
+                                                                                        <table class="table responsive table-striped" cellspacing="0" width="100%" id="sort">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>OEM</th>
+                                                                                                    <th>Product Line</th>
+                                                                                                    <th>Type</th>
+                                                                                                    <th>0-1 Year old</th>
+                                                                                                    <th>1-2 Years old</th>
+                                                                                                    <th>2-3 Years old</th>
+                                                                                                    <th>3-4 Years old</th>
+                                                                                                    <th>4-5 Years old</th>
+                                                                                                    <th>Over 5 Years old</th>
+                                                                                                    <th>Total</th>
+                                                                                                    <th></th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody id="table-body-{{item.srno}}">
+
+                                                                                            </tbody>
+                                                                                        </table>
+
+                                                                                        <input class='btn add-row form-control col-sm-3' type='button' id="addrow-table-row-{{item.srno}}" value='Add New Row' />
+                                                                                    </div>
+                                                                                    <div class="row col-md-12">
+                                                                                        <div class="col-md-3 text-center calculate-result">
+                                                                                            <a class="btn  btn-calculate form-control" (click)="calculate()">Calculate Result</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class='form-group col-sm-12' id="summary">
+                                                                                        <h4>Results Summary:</h4>
+                                                                                        <!-- <table>
+                                                                                            <tr>
+                                                                                                <td>Maintenance Savings:</td>
+                                                                                                <td class="final-calculation">${{this.hardwareMaintenanceSavings}}</td>
+                                                                                            </tr>
+
+                                                                                            <tr>
+                                                                                                <td>PLB Savings: </td>
+                                                                                                <td class="final-calculation">${{this.PlbSavings}}</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>Carbon footprint reduction: </td>
+                                                                                                <td class="final-calculation">{{this.CarbonFootprintReduction}} kg CO<sub>2</sub>e</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>Equipment worth after migration:</td>
+                                                                                                <td class="final-calculation">${{this.PlbSavings}}</td>
+                                                                                            </tr>
+                                                                                        </table> -->
+                                                                                        <div>
+                                                                                            <div class="col-12 col-md-6 col-lg-3 ">
+                                                                                                <div class="card text-center card1 final-result-icon-1">
+                                                                                                    <a href="#">
+                                                                                                        <div class="card-body">
+                                                                                                            <img class="card-img-content" src="assets/image/maintenance.png" id="image1-model-e">
+                                                                                                            <p class="card-text text1"><strong>Hardware Maintenance<br/>Savings</strong></p>
+                                                                                                            <p class="card-text active activetext"><strong>${{hardwareMaintenanceSavings}}</strong></p>
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-12 col-md-6 col-lg-3">
+                                                                                                <div class="card text-center card1 final-result-icon-2">
+                                                                                                    <a href="#">
+                                                                                                        <div class="card-body">
+                                                                                                            <img class="card-img-content" src="assets/image/dollar.png" id="image2-model-e">
+                                                                                                            <p class="card-text text1 pbottom-text"><strong>Purchase Leaseback<br/>Savings</strong></p>
+                                                                                                            <p class="card-text active activetext"><strong>${{this.PlbSavings}}</strong></p>
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-12 col-md-6 col-lg-3 ">
+                                                                                                <div class="card text-center card1 final-result-icon-3">
+                                                                                                    <a href="#">
+                                                                                                        <div class="card-body">
+                                                                                                            <img class="card-img-content" src="assets/image/right-cloud.png" id="image3-model-e">
+                                                                                                            <p class="card-text text1 pbottom-text"><strong>Carbon FootPrint<br/>Reduction</strong></p>
+                                                                                                            <p class="card-text active activetext"><strong>{{this.CarbonFootprintReduction}} kg CO<sub>2e</sub></strong></p>
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-12 col-md-6 col-lg-3 ">
+                                                                                                <div class="card text-center card1 final-result-icon-4">
+                                                                                                    <a href="#">
+                                                                                                        <div class="card-body">
+                                                                                                            <img class="card-img-content" src="assets/image/savings-icon.png">
+                                                                                                            <p class="card-text text1 pbottom-text"><strong>Hardware<br/>Valuation</strong></p>
+                                                                                                            <p class="card-text active activetext"><strong>${{this.EquipmentWorth}}</strong></p>
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row final-result-1 form-group col-sm-12">
+                                                                                            <div class="col-12 mt-3">
+                                                                                                <h4 class="header-title-box">Hardware Maintenance Savings</h4>
+                                                                                                <p class="mt-3"> During a migration to the cloud, datacenter hardware still needs to be maintained. Through Relutech's Elastic Maintenance program, customers can save up to
+                                                                                                    70% off OEM maintenance agreements. Based on the age, type, and location of the equipment, we estimate the savings that can be generated to help fund your
+                                                                                                    migration.
+                                                                                                </p>
+
+                                                                                                <table class="mt-3">
+                                                                                                    <tbody class="table-border-box">
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                <p class="maintaintext"><span class="maintenance p-2">Current OEM Maintenance Renewal</span></p>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <p><span class="maintainprice">${{this.oemMaintainance}}</span></p>
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                <p class="maintaintext"><span class="maintenance p-2">Relutech Maintenance Cost</span></p>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <p><span class="maintainprice">${{this.rlMaintainance}}</span></p>
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                <p><span class="maintenance p-2">Estimated Maintenance Savings</span></p>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <p><span class="maintainprice">${{this.estimatedMaintainanceSavings}}</span></p>
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                        <!-- <p class="maintaintext mt-3"><span class="maintenance p-2">Current OEM Maintenance Renewal.............</span><span class="maintainprice">${{this.oemMaintainance}}</span></p>
+                                                                                                    <p class="maintaintext"><span class="maintenance p-2">Relutech Maintenance Cost...............</span><span class="maintainprice">${{this.rlMaintainance}}</span></p>
+                                                                                                    <p><span class="maintenance p-2">Estimated Maintenance Savings.........</span><span class="maintainprice">${{this.estimatedMaintainanceSavings}}</span></p> -->
+                                                                                                    </tbody>
+                                                                                                </table>
+                                                                                                <!-- <p class="maintaintext mt-3"><span class="maintenance p-2">Current OEM Maintenance Renewal.............</span><span class="maintainprice">${{this.oemMaintainance}}</span></p>
+                                                                                                <p class="maintaintext"><span class="maintenance p-2">Relutech Maintenance Cost...............</span><span class="maintainprice">${{this.rlMaintainance}}</span></p>
+                                                                                                <p><span class="maintenance p-2">Estimated Maintenance Savings.........</span><span class="maintainprice">${{this.estimatedMaintainanceSavings}}</span></p> -->
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row final-result-2 form-group col-sm-12">
+                                                                                            <div class="col-12">
+                                                                                                <h4 class="header-title-box mt-5">Purchase Leaseback</h4>
+                                                                                                <p> Relutech offers a Purchase Leaseback solution where we buy IT assets and then lease them back to the customer during the length of the migration. This provides
+                                                                                                    a cash infusion upfront while ensuring critical infrastructure is maintained to bridge the gap between on-premises to the cloud. This solution creates
+                                                                                                    a more predictable financial outcome, removes these assets from the balance sheet, and provides a with locked-in residual value. </p><br>
+                                                                                                <p> Estimates of the cash benefit of a purchase leaseback are detailed below. Many factors can have an impact on a final proposal, and significant additional savings
+                                                                                                    can be realized from hardware maintenance. </p>
+                                                                                                <div class="mt-5 context-inner-details-purchase">
+                                                                                                    <div class="mx-2 ms-lg-5 box-text-center">
+                                                                                                        <div class="row mt-3 row-text-line">
+                                                                                                            <div class="col-1 col-md-1 row-text-line-content">
+                                                                                                                <p>1</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-4 col-10 row-text-left-line-content">
+                                                                                                                <p>ReluTech Pays Customer for Equipment</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-3 col-6"></div>
+                                                                                                            <div class="col-6 col-md-2 row-text-right-line-content">
+                                                                                                                <p class="text-center row-text-line-content-para">${{this.buyPrice}}</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-2"></div>
+                                                                                                        </div>
+                                                                                                        <div class="row py-0 row-text-line">
+                                                                                                            <div class="col-1 col-md-1 row-text-line-content">
+                                                                                                                <p>2</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-4 col-10 row-text-left-line-content">
+                                                                                                                <p>Customer Pays ReluTech Rent for the Lease Term</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-2 col-3 row-text-right-line-content">
+                                                                                                                <p class="text-center row-text-line-content-para">{{this.migrationMonths}} Months</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-1 col-1 row-text-line-content-symbol">
+                                                                                                                <p class="text-center row-text-line-content-para">X</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-2 col-3 row-text-right-line-content">
+                                                                                                                <p class="text-center row-text-line-content-para">${{this.result_relu_rent_display}}</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-1 col-1 row-text-line-content-symbol">
+                                                                                                                <p>=</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-1 col-4 row-text-right-line-content">
+                                                                                                                <p class="text-center row-text-line-content-para">${{ this.customerPaysRelutech }}</p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="row row-text-line">
+                                                                                                            <div class="col-1 col-md-1 row-text-line-content">
+                                                                                                                <p>3</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-4 col-10 row-text-left-line-content">
+                                                                                                                <p>Customer Benefits from the Difference</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-2 col-3 row-text-right-line-content">
+                                                                                                                <p class="text-center row-text-line-content-para">${{this.buyPrice}}</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-1 col-1 row-text-line-content-symbol">
+                                                                                                                <p>-</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-2 col-3 row-text-right-line-content">
+                                                                                                                <p class="text-center row-text-line-content-para">${{ this.customerPaysRelutech }}</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-1 col-1 row-text-line-content-symbol">
+                                                                                                                <p>=</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-1 col-4 row-text-right-line-content">
+                                                                                                                <p class="text-center row-text-line-content-para">${{ this.diffTotal3 }}</p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row final-result-3 form-group col-sm-12">
+                                                                                            <div class="col-12">
+                                                                                                <h4 class="header-title-box mt-5">Carbon Footprint Reduction</h4>
+                                                                                                <p class="mt-3 carbo-para"> By eliminating datacenter equipment and moving to the cloud, companies can substantially reduce their carbon footprint. For these estimates, we made some fairly
+                                                                                                    broad, but conservative assumptions. We compared the energy consumption of average servers running on-premises and in AWS in the United States, and extrapolated
+                                                                                                    the total savings based on the migration timeline and total number of servers. For our calculations, we relied on the following research: Lannelongue,
+                                                                                                    L., Grealey, J., Inouye, M., Green Algorithms: Quantifying the Carbon Footprint of Computation. Adv. Sci. 2021, 2100707. </p>
+                                                                                            </div>
+                                                                                            <div class="col-md-12 mt-4">
+                                                                                                <div class="row fs-5 box-container-center">
+                                                                                                    <div class="col-lg-3 col-md-6">
+                                                                                                        <div class="card text-center icon card-content-details">
+                                                                                                            <div class="card-body"><img src="assets/image/icon04.png" class="img-fluid">
+                                                                                                                <p class="card-text card-title-text-para">{{this.result_trees_saved}} Tree Years</p>
+                                                                                                                <p class="card-text card-inner-text-para">Carbon Sequestration</p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-lg-3 col-md-6">
+                                                                                                        <div class="card text-center icon card-content-details">
+                                                                                                            <div class="card-body card-img-context"><img src="assets/image/icon05.png" class="img-fluid">
+                                                                                                                <p class="card-text card-title-text-para">{{this.result_miles_passenger_car}} miles</p>
+                                                                                                                <p class="card-text card-inner-text-para">in a passenger car</p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-lg-3 col-md-6">
+                                                                                                        <div class="card text-center icon card-content-details">
+                                                                                                            <div class="card-body card-img-context"><img src="assets/image/co2-icon.png" class="img-fluid image-carbon">
+                                                                                                                <p class="card-text card-title-text-para">{{this.result_carbon_footprint_reduction}}%</p>
+                                                                                                                <p class="card-text card-inner-text-para">CO2 Emissions Saved</p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-lg-3 col-md-6">
+                                                                                                        <div class="card text-center icon card-content-details">
+                                                                                                            <div class="card-body card-img-context"><img src="assets/image/energy-icon.png" class="img-fluid">
+                                                                                                                <p class="card-text card-title-text-para">{{this.result_energy_saved}}%</p>
+                                                                                                                <p class="card-text card-inner-text-para">Energy Saved(per month)</p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row final-result-4 form-group col-sm-12">
+                                                                                            <div class="col-12">
+                                                                                                <h4 class="header-title-box mt-5">Hardware Valuation</h4>
+                                                                                                <p>
+                                                                                                    Many factors influence the value of datacenter equipment. The estimates we have made, provide a current and future valuation, based only on the information provided. A more detailed estimate may be provided from a complete hardware asset inventory.
+                                                                                                </p>
+                                                                                                <div class="row">
+                                                                                                    <div class="col-lg-12 center">
+                                                                                                        <div class="charge-center">
+
+                                                                                                            <highcharts-chart [Highcharts]="highcharts" [options]="cOptions" [(update)]="updateFromInput" class="h-chart">
+                                                                                                            </highcharts-chart>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <p class="graph-under-line">Based on our estimates, your equipment will be worth approximately <span>${{this.equipmentWorth}}</span> at the end of <span>{{this.migrationMonths}} months</span>,
+                                                                                                            when your migration is complete.
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                    <div class='form-group col-sm-12 mt-5'>
+                                                                                        <label>Additional Notes</label>
+                                                                                        <textarea name="customer_remark" id="customer_remark" class="form-control">{{this.quoteDetail.additional_notes}}</textarea>
+                                                                                    </div>
+
+                                                                                    <div class='form-group col-sm-12'>
+                                                                                        <label>Sales Rep Note</label>
+                                                                                        <textarea name="sales_agent_remark" id="sales_agent_remark" class="form-control">{{this.quoteDetail.sales_rep_notes}}</textarea>
+                                                                                    </div>
+                                                                                    <div class='form-group col-sm-12'>
+                                                                                        <label>Admin Notes</label>
+                                                                                        <textarea name="admin_remark" id="admin_remark" class="form-control">{{this.quoteDetail.admin_notes}}</textarea>
+                                                                                    </div>
+
+                                                                                    <div class='form-group col-sm-12'>
+                                                                                        <label>Archive &nbsp;</label>
+                                                                                        <label>
+                                                                                        <input type=radio name='radio_is_active'
+                                                                                            id='radio_is_active' value='N' [(ngModel)]="this.quoteDetail.is_active"> Yes
+                                                                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                        <label>
+                                                                                        <input type=radio name='radio_is_active'
+                                                                                            id='radio_is_active' value='Y' [(ngModel)]="this.quoteDetail.is_active"> No
+                                                                                    </label>&nbsp;&nbsp;&nbsp;
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <!-- <div class="box-footer">
+
+                                                                                <a class="btn " (click)="moveNext()">Update</a> &nbsp;&nbsp;-->
+
+                                                                                <a class="btn" (click)="popup = true">Share with Client</a> &nbsp;&nbsp;
+                                                                                <a class="btn" (click)="new_quote_popup_event()">Save As New Quote</a> &nbsp;&nbsp;
+
+                                                                                <!-- <a class="btn " (click)="nevigateToDashboard()">Cancel</a>
+                                                                                </div> -->
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="overlay" *ngIf="new_quote_popup">
+                                                                        <div class="popup" id="new_quote">
+                                                                            <div class="popup-header pt-5">
+                                                                                <div id="record_delete_fail" class="alert alert-danger" role="alert"></div>
+                                                                                <div id="record_delete_success" class="alert alert-success" role="alert"></div>
+                                                                                <h5 class="modal-title" id="exampleModalLabel">Save New Quote</h5>
+                                                                                <div class="popup-btn-close">
+                                                                                    <div class="new-quote-details col-md-12 mb-3">
+                                                                                        <div id="failed_new_quote_name" class="alert alert-danger"></div>
+                                                                                        <label class="col-md-12 new-quote-label mt-4">Quote Name<span class="text text-danger">*</span></label>
+                                                                                        <input class="form-control col-md-12 mt-2" type="text" maxlength="200" name="new-quote-name" id="new-quote-name" />
+
+                                                                                    </div>
+
+                                                                                    <button id="new_quote_save" class="btn btn-secondary mt-3" (click)="newQuotePopupSave()">Save</button>
+
+                                                                                </div>
+                                                                                <a class="closed" (click)="new_quote_popup = false">&times;</a>
+
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="overlay" *ngIf="popup">
+                                                                        <div class="popup">
+                                                                            <div class="popup-header">
+                                                                                <h5 class="modal-title" id="quote_share">Quote Detail</h5>
+                                                                                <quote-detail-popup></quote-detail-popup>
+                                                                                <button class="btn btn-primary" id="btnExportPdf" (click)="GeneratePdf()">Export as PDF</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                <!-- <button class="close btn btn-secondary" (click)="popup = false">Close</button> -->
+                                                                            </div>
+                                                                            <a class="closed" (click)="popup = false">&times;</a>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                                                        aria-hidden="true">&times;</span></button>
+                                                                                    <p class="modal-title" id="myModalLabel">
+                                                                                        Our IT divest solution is ideal for customers who own their own IT equipment.
+                                                                                    </p>
+                                                                                    <p>Furthermore, our solution is not to a great fit mall customers, defined as those with under 20 servers.
+                                                                                    </p>
+                                                                                    <p>There are exceptions of course.
+                                                                                    </p>
+                                                                                    <p>Like a mainframe customer, or a customer who only wants to migrate storage to the cloud.
+                                                                                    </p>
+                                                                                    <p>Let us know your situation.
+                                                                                    </p>
+                                                                                    <p>
+                                                                                    </p>
+                                                                                    <p>Email us here: ITDivest@relutech.com
+                                                                                        <br />or submit and we will be in touch.
+                                                                                    </p>
+
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class='box-body'>
+                                                                                        <div class='form-group'>
+                                                                                            <textarea name='description' id='description' class='form-control' rows="5" cols="4">
+                                                                                        </textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="box-body pt-0 px-0 pb-0" id="auditResult">
+                                                                        <h2 class="pb-2">Audit History</h2>
+                                                                        <table class='table' id='auditTable'>
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="audittable-th" scope="col">User Name</th>
+                                                                                    <th class="audittable-th" scope="col">Email Id</th>
+                                                                                    <th class="audittable-th" scope="col">Created/updated DateTime</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr *ngFor="let audit of auditDetails">
+                                                                                    <td>{{audit.user_name}}</td>
+                                                                                    <td>{{audit.email}}</td>
+                                                                                    <td>{{audit.updated_datetime}}</td>
+                                                                                </tr>
+                                                                            </tbody>
+
+                                                                        </table>
+                                                                    </div>
+                                                                </form>
+                                                                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                <h3><b>All locations are approved.</b></h3>
+                                                                                <p class="modal-title" id="myModalLabel">Please proceed to the next section.
+                                                                                </p>
+                                                                                <br />
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                <h3><b>For one or more of the locations selected we do not offer
+                                                                                    services.</b>
+                                                                                </h3>
+                                                                                <p class="modal-title" id="myModalLabel">Please note below the locations we can not provide service.</p>
+                                                                                <br />
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="country-list" id="country-list"></div>
+                                                                                <div class="notes">
+                                                                                    <p>For all further questions, please enter data for our approved locations only.
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="nevigateToDashboard()">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="control-sidebar-bg"></div>
+                                                </section>
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of box -->
+                            </form>
+                        </div>
+                        <!-- end of formholder -->
+
+
+
+
+
+
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- end of content wrapper -->
+        <app-footer></app-footer>
+    </div>
+    <div id="spinner "></div>
+</body>
+
+</html>

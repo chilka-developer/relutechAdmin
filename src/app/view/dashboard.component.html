@@ -1,0 +1,110 @@
+<html>
+
+<head>
+    <app-head></app-head>
+
+
+
+    <style>
+        .sidebar-mini.sidebar-collapse .main-header .logo>.logo-mini {
+            background-color: #FFF;
+        }
+        
+        .main-header .logo>.logo-lg {
+            background-color: #FFF;
+        }
+    </style>
+    <style>
+
+    </style>
+</head>
+
+<body class="skin-black fixed sidebar-mini sidebar-mini-expand-feature">
+    <div class="wrapper">
+        <app-header></app-header>
+        <app-side-bar></app-side-bar>
+
+
+        <div class="content-wrapper">
+
+
+
+            <section class="content-header">
+
+                <h1>Dashboard</h1>
+
+
+            </section>
+
+
+
+            <section class="content">
+
+                <div class="row">
+                    <div class="col-lg-3 col-xs-6">
+
+                        <div class="small-box bg-aqua">
+                            <div class="inner">
+
+                                <h3>{{this.quotesCount}}</h3>
+                                <p>Quotes</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-file"></i>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-xs-6">
+
+                        <div class="small-box bg-green">
+                            <div class="inner">
+
+                                <h3>{{this.serverCount}}</h3>
+
+                                <p>Servers Migrated to Cloud</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-server"></i>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-xs-6">
+
+                        <div class="small-box bg-red">
+                            <div class="inner">
+
+                                <h3>{{this.customerCount}}</h3>
+
+                                <p>Customers Served</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </section>
+
+
+
+        </div>
+        <app-footer></app-footer>
+
+    </div>
+    <div id="spinner"></div>
+
+
+
+
+</body>
+
+</html>

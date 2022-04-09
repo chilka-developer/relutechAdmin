@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <app-head></app-head>
+
+
+</head>
+
+<body>
+
+    <!-- <div class="container justify-content-center">
+        <div class="row full-container-image">
+            <div class="col-md-4 login-form col-md-offset-3">
+                <form [formGroup]="mySignInForm" (ngSubmit)="onSubmit(mySignInForm.value)">
+                    <div class="col-md-12">
+                        <div class="avatar rounded-circle shadow-sm mx-auto my-0 border">
+                        </div>
+
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <input type="text" name="username" id="username" formControlName="username" class="form-control form-details" placeholder="username" />
+
+                        </div>
+                        <!-- <p><span class="text-danger" *ngIf="!mySignInForm.value.username.valid">please enter valid username</span></p> -- >
+
+    </div>
+    <div class="col-md-12">
+        <div class="form">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+            <input type="password" name="password " formControlName="password" class="form-control form-details" placeholder="password" required />
+            <span><a>forgot password?</a></span>
+
+        </div>
+
+    </div>
+    <div class="col-md-12">
+        <div class="form">
+            <button name="submit" value="" type="submit" class="btn btn-info btn-block login-btn">Sign in</button>
+
+        </div>
+
+    </div>
+    </form>
+    </div>
+    </div>
+    </div> -->
+
+
+    <div class="login-form mx-auto ">
+        <form [formGroup]="mySignInForm" (ngSubmit)="onSubmit(mySignInForm.value)" class="needs-validation shadow rounded" novalidate>
+            <div class="avatar rounded-circle shadow-sm mx-auto my-0 border ">
+                <!--background-image:url(../../assets/images/logo.png);-->
+            </div>
+
+            <div class="mb-3 mt-5">
+                <div id="signInErrorMessage" class="alert alert-danger" role="alert">
+                    {{this.signInApiError}}
+                </div>
+                <div id="valid_signIn_form" class="alert alert-danger" role="alert">
+
+                </div>
+                <div class="form-group has-icon mb-0">
+                    <span class="fa fa-user form-control-feedback"></span>
+                    <input type="text" maxlength="150" class="form-control" id="txtUserName" name="txtUserName" autocomplete="off" placeholder="Username" required formControlName="username">
+                    <!-- <div *ngIf="f.mySignInForm.touched && f.website.invalid" class="alert alert-danger">
+                        <div *ngIf="f.mySignInForm.errors.required">Name is required.</div>
+                    </div> -->
+                    <!-- <div><span id="valid_signIn_form" class="text-danger"></span></div> -->
+
+                    <!-- <div><span class="blank-username text-danger">enter a username</span></div> -->
+
+
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="form-group has-icon mb-0">
+                    <span class="fa fa-lock form-control-feedback"></span>
+                    <input type="password" maxlength="150" class="form-control" name="txtPassword" id="txtPassword" autocomplete="off" placeholder="Password" required formControlName="password">
+                    <!-- <span *ngIf="!this.mySignInForm.valid.password">enter a valid username</span> -->
+                    <!-- <div><span id="valid_signIn_form_pass" class="text-danger"></span></div> -->
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <button name="submit" value="" type="submit" class="btn btn-block sign-in-button">Sign In</button>
+            </div>
+        </form>
+        <p class="text-center text-danger">
+        </p>
+        <!--<p class="text-center small">Don't have an account? <a href="#">Sign up here!</a></p>-->
+    </div>
+</body>
+
+</html>
